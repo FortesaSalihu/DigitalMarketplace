@@ -9,7 +9,7 @@ import { registerStyles } from "./registerStyles";
 
 // Reusable inputs
 import TextInput from "@/components/inputs/TextInput";
-import PasswordInput from '@/components/inputs/PasswordInput';
+import PasswordInput from "@/components/inputs/PasswordInput";
 import Button from "@/components/inputs/Button";
 import SwitchInput from "@/components/inputs/SwitchInput";
 
@@ -31,13 +31,60 @@ export default function RegisterPage() {
     }));
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    e.preventDefault()
+    setLoading(true);
 
-    setLoading(true)
+    if (!formData.fullName) {
+      toast.error("please enter your full name");
+      return setLoading(false);
+    }
+    if (!formData.email) {
+      toast.error("please enter an email");
+      return setLoading(false);
+    }
+    if (!formData.password) {
+      toast.error("please enter a password");
+      return setLoading(false);
+    }
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("password do not match");
+      return setLoading(false);
+    }
 
-    
+    try {
+      const res = await fetch(`http://localhost:3000/api/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.err || "Registraion  failed");
+      }
+
+      toast.success(data.msg || "Registraion successfully");
+
+      setFormData({
+        fullName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        terms: false,
+      });
+    } catch (error) {
+      toast.error(error.message || "something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
