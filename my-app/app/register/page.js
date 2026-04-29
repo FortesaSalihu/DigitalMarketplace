@@ -1,17 +1,20 @@
 "use client";
-import Header from "@/components/header/Header";
+
+import RegisterPage from "@/components/RegisterPage/RegisterPage";
+
 import Category from "@/components/categories/CategoriesBar";
-import HeroSection from "@/components/home/hero/HeroSection";
+
+import Header from "@/components/header/Header";
 
 import Footer from "@/components/footer/Footer";
 
-export default function Home() {
+export default function Page() {
   return (
-    <div>
+    <>
       <Header />
       <Category />
-      <HeroSection />
+      <RegisterPage />
       <Footer />
-    </div>
+    </>
   );
 }
