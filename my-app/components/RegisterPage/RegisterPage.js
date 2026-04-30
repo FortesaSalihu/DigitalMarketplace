@@ -54,7 +54,7 @@ export default function RegisterPage() {
     }
 
     try {
-      const res = await fetch(`http://localhost:3000/api/register`, {
+      const res = await fetch(`${process.env.API}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

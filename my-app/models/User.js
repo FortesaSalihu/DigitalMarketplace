@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import WithdrawlMethod from "./WithdrawlMethod";
+// import WithdrawalMethod from "./WithdrawalMethod";
 
 const UserSchema = new mongoose.Schema(
   {
