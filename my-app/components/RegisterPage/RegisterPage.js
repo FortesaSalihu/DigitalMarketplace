@@ -170,7 +170,7 @@ export default function RegisterPage() {
 
           <Box sx={{ textAlign: "center", mt: 2 }}>
             <Typography variant="body2">
-              Already have an account? <Link href="#">Sign in</Link>
+              Already have an account? <Link href="/login">Sign in</Link>
             </Typography>
           </Box>
         </Box>
