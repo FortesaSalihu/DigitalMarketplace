@@ -1,14 +1,13 @@
 "use client";
 import React from "react";
-import { Typography, Card, CardContent, Box } from "@mui/material";
-import Grid from "@mui/material/Grid";
+import { Typography, Grid, Card, CardContent, Box } from "@mui/material";
 import {
   ShoppingCart as ShoppingCartIcon,
   Star as StarIcon,
   AttachMoney as AttachMoneyIcon,
 } from "@mui/icons-material";
 import dashboardStyles from "./dashboardStyles";
-
+import KycPending from "./KycPendingAlert";
 export default function DashboardPage() {
   const dummyData = { purchases: 6, reviews: 8, totalSpent: 34711 };
 
@@ -18,9 +17,10 @@ export default function DashboardPage() {
         <Typography variant="h5" sx={dashboardStyles.headerTitle}>
           Welcome back!
         </Typography>
+        <KycPending />
 
         <Grid container spacing={3}>
-          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+          <Grid item xs={12} sm={6} md={4}>
             <Card>
               <CardContent sx={dashboardStyles.cardContent}>
                 <Box sx={dashboardStyles.cardIconWrapGreen}>
@@ -38,7 +38,7 @@ export default function DashboardPage() {
             </Card>
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+          <Grid item xs={12} sm={6} md={4}>
             <Card>
               <CardContent sx={dashboardStyles.cardContent}>
                 <Box sx={dashboardStyles.cardIconWrapYellow}>
@@ -56,7 +56,7 @@ export default function DashboardPage() {
             </Card>
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+          <Grid item xs={12} sm={6} md={4}>
             <Card>
               <CardContent sx={dashboardStyles.cardContent}>
                 <Box sx={dashboardStyles.cardIconWrapBlue}>
@@ -73,6 +73,8 @@ export default function DashboardPage() {
               </CardContent>
             </Card>
           </Grid>
+
+          {/* Add more cards as needed */}
         </Grid>
       </Box>
     </>
