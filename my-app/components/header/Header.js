@@ -25,7 +25,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import headerStyles from "./headerStyles";
 import WidgetsIcon from "@mui/icons-material/Widgets";
-// import { useSession, signIn } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 
 import Avatar from "@mui/material/Avatar";
 import LoginIcon from "@mui/icons-material/Login";
@@ -34,7 +34,7 @@ export default function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
   const mdUp = useMediaQuery(theme.breakpoints.up("md"));
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
 
   const navItems = [
     { label: "Home", href: "/" },
@@ -67,7 +67,7 @@ export default function Header() {
                     fontSize="14"
                     fill="#890eeeff"
                   >
-                    Digital
+                    Digital Marketplace
                   </text>
                 </svg>
               </Box>
@@ -116,32 +116,42 @@ export default function Header() {
             <IconButton aria-label="Cart" sx={headerStyles.iconButton}>
               <ShoppingCartOutlinedIcon />
             </IconButton>
-            <IconButton
+            {/* <IconButton
               aria-label="Login"
               sx={headerStyles.iconButton}
-              // onClick={() => signIn()}
+              onClick={() => signIn()}
             >
               <LoginIcon />
-            </IconButton>
+            </IconButton> */}
             {/* ACCOUNT / LOGIN */}
-            {/* {!session ? (
+            {!session ? (
               // 🔐 NOT LOGGED IN → LOGIN ICON
-              
-            ) : ( */}
-            {/* // ✅ LOGGED IN → USER AVATAR */}
-            <IconButton
-              aria-label="Account"
-              component={Link}
-              href="/dashboard/user"
-              sx={headerStyles.iconButton}
-            >
-              <Avatar
-                src="/image/img4.jpg"
-                alt="User"
-                sx={{ width: 32, height: 32 }}
-              />
-            </IconButton>
-            {/* )} */}
+              <IconButton
+                aria-label="Login"
+                sx={headerStyles.iconButton}
+                onClick={() => signIn()}
+              >
+                <LoginIcon />
+              </IconButton>
+            ) : (
+              // ✅ LOGGED IN → USER AVATAR
+              <IconButton
+                aria-label="Account"
+                component={Link}
+                href={`/dashboard/${session?.user?.user_type}`}
+                sx={headerStyles.iconButton}
+              >
+                <Avatar
+                  src={session?.user?.avatar?.url || "/image/img4.jpg"}
+                  alt={session.user?.name || "User"}
+                  sx={{
+                    width: 32,
+                    height: 32,
+                  }}
+                />
+              </IconButton>
+            )}
+
             {/* show hamburger on small screens */}
             <IconButton
               aria-label="Open menu"
