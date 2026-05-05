@@ -63,6 +63,7 @@ export default function ProfileCard() {
       try {
         setLoading(true);
 
+        alert(JSON.stringify({values}, null, 4))
         const res = await fetch(`${process.env.API}/user/profile/update`, {
           method: "PUT",
           headers: {
@@ -105,7 +106,7 @@ export default function ProfileCard() {
     <Box sx={styles.pageWrapper}>
       <Box sx={styles.container}>
         {/* Sidebar - Now imported as separate component */}
-        {/* <Sidebar userData={values} /> */}
+        <Sidebar userData={values} />
 
         {/* Main form */}
         <Paper sx={styles.form} elevation={1}>
