@@ -1,9 +1,7 @@
-"use client"
+"use client";
 
-export default function Page() {
-  return (
-    <>
-    <h1>Admin dashboard</h1>
-    </>
-  );
+import AdminLayout from "@/components/dashboard/admin/AdminLayout";
+
+export default function AdminPage() {
+  return <AdminLayout />;
 }
