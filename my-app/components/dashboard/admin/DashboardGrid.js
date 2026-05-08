@@ -10,21 +10,13 @@ import Stack from "@mui/material/Stack";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import PendingActionsIcon from "@mui/icons-material/PendingActions";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutlined";
 import PersonIcon from "@mui/icons-material/Person";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import styles from "./dashboardStyles";
 import Footer from "@/components/footer/Footer";
-
-import SalesOverview from "@/components/dashboard/admin/SalesOverview/SalesOverview";
-
-import PieChart from "@/components/dashboard/admin/PieChart/SalesOverview";
-
-import StackedBarChart from "@/components/dashboard/admin/StackedBarChart/SalesOverview";
-import BubbleChart from "@/components/dashboard/admin/BubbleChart/SalesOverview";
-import GradientChart from "@/components/dashboard/admin/GradientChart/SalesOverview";
 
 const cards = [
   {
@@ -140,22 +132,23 @@ export default function DashboardGrid() {
         <Box sx={styles.container}>
           <Grid container spacing={isVerySmall ? 1 : 2}>
             {cards.map((c, idx) => (
+              // FIX 1: Removed `item` boolean prop (removed in MUI v6)
+              // FIX 2: xs/sm/md/lg → size prop (new MUI v6 Grid API)
               <Grid
-                item
                 key={idx}
-                xs={12}
-                sm={6}
-                md={4}
-                lg={3}
+                size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
                 sx={{ display: "flex" }}
               >
                 <Card sx={styles.card}>
                   <CardContent sx={{ width: "100%" }}>
+                    {/* FIX 3: alignItems + justifyContent moved into sx (MUI v6 Stack) */}
                     <Stack
                       direction="row"
-                      alignItems="center"
                       spacing={2}
-                      justifyContent="space-between"
+                      sx={{
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
                     >
                       <Box>
                         <Typography sx={styles.value}>{c.value}</Typography>
@@ -195,12 +188,6 @@ export default function DashboardGrid() {
             ))}
           </Grid>
         </Box>
-
-        <SalesOverview />
-        <PieChart />
-        <StackedBarChart />
-        <BubbleChart />
-        <GradientChart />
       </Box>
 
       <Footer />

@@ -29,8 +29,9 @@ export const menuItems = [
     icon: <CategoryIcon />,
 
     children: [
-      { label: "Create", path: "/dashboard/admin/categories/create" },
-      { label: "List", path: "/dashboard/admin/categories/list" },
+      //  { label: "Create", path: "/dashboard/admin/categories/create" },
+      { label: "Categories", path: "/dashboard/admin/categories/list" },
+      { label: "SubCategories", path: "/dashboard/admin/subcategories/list" },
     ],
   },
   {
@@ -44,7 +45,24 @@ export const menuItems = [
     id: "reviews",
     label: "Product Review",
     icon: <RateReviewIcon />,
-    path: "/dashboard/admin/reviews",
+    // path: "/dashboard/admin/reviews",
+
+    children: [
+      { label: "Pending", path: "/dashboard/admin/item-reviews/pending" },
+      { label: "Approved", path: "/dashboard/admin/item-reviews/approved" },
+      {
+        label: "Soft Rejected",
+        path: "/dashboard/admin/item-reviews/soft_rejected",
+      },
+      {
+        label: "Hard Rejected",
+        path: "/dashboard/admin/item-reviews/hard_rejected",
+      },
+      {
+        label: "Resubmitted",
+        path: "/dashboard/admin/item-reviews/resubmitted",
+      },
+    ],
   },
   {
     id: "kyc",
@@ -69,8 +87,30 @@ export const menuItems = [
     id: "withdraw-methods",
     label: "Withdraw Methods",
     icon: <CreditCardIcon />,
-    path: "/dashboard/admin/withdraw-methods",
+    path: "/dashboard/admin/withdraw-methods/list",
   },
+
+  {
+    id: "Featured Creater",
+    label: "Featured Creater",
+    icon: <ViewModuleIcon />,
+    path: "/dashboard/admin/featured-creater",
+  },
+
+  {
+    id: "featured product",
+    label: "Featured Product",
+    icon: <BadgeIcon />,
+    path: "/dashboard/admin/featured-product",
+  },
+
+  {
+    id: "highlight product",
+    label: "HighlightProduct",
+    icon: <ViewModuleIcon />,
+    path: "/dashboard/admin/highlight-product",
+  },
+
   {
     id: "sections",
     label: "Sections",
@@ -128,5 +168,12 @@ export const menuItems = [
     icon: <DeleteSweepIcon />,
     path: "/dashboard/admin/wipe-database",
     dangerous: true,
+  },
+
+  {
+    id: "logout",
+    label: "Logout",
+    icon: <PaymentIcon />,
+    path: "/dashboard/admin/logout",
   },
 ];

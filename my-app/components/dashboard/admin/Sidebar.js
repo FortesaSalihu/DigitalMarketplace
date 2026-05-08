@@ -57,6 +57,7 @@ export default function Sidebar({
     payment: false,
     settings: false,
     "wipe-database": false,
+    logout: false,
   });
 
   const [collapsed, setCollapsed] = useState(false);
@@ -64,7 +65,6 @@ export default function Sidebar({
   const toggleCollapse = (key) =>
     setOpenCollapse((s) => ({ ...s, [key]: !s[key] }));
 
-  // Navigation handler
   const handleNavigation = (path) => {
     router.push(path);
     if (isSmall) {
@@ -72,7 +72,6 @@ export default function Sidebar({
     }
   };
 
-  // Render menu items
   const renderMenuItems = () => {
     return menuItems.map((item) => {
       const hasChildren = item.children && item.children.length > 0;
@@ -93,13 +92,16 @@ export default function Sidebar({
               </ListItemIcon>
               {!collapsed && (
                 <>
+                  {/* FIX 1: primaryTypographyProps replaced with slotProps */}
                   <ListItemText
                     primary={item.label}
-                    primaryTypographyProps={{
-                      fontSize: sidebarStyles.listItemText.fontSize,
-                      color: item.dangerous
-                        ? sidebarStyles.listItemTextDangerous.color
-                        : "inherit",
+                    slotProps={{
+                      primary: {
+                        fontSize: sidebarStyles.listItemText.fontSize,
+                        color: item.dangerous
+                          ? sidebarStyles.listItemTextDangerous.color
+                          : "inherit",
+                      },
                     }}
                   />
                   {openCollapse[item.id] ? <ExpandLess /> : <ExpandMore />}
@@ -121,9 +123,10 @@ export default function Sidebar({
                     onClick={() => handleNavigation(child.path)}
                     sx={getChildListItemButtonStyles(collapsed)}
                   >
+                    {/* FIX 2: primaryTypographyProps replaced with slotProps */}
                     <ListItemText
                       primary={child.label}
-                      primaryTypographyProps={sidebarStyles.childListItemText}
+                      slotProps={{ primary: sidebarStyles.childListItemText }}
                     />
                   </ListItemButton>
                 ))}
@@ -133,7 +136,6 @@ export default function Sidebar({
         );
       }
 
-      // Single item without children
       return (
         <ListItem key={item.id} disablePadding sx={sidebarStyles.listItem}>
           <ListItemButton
@@ -143,14 +145,17 @@ export default function Sidebar({
             <ListItemIcon sx={getListItemIconStyles(collapsed, item.dangerous)}>
               {item.icon}
             </ListItemIcon>
+            {/* FIX 3: primaryTypographyProps replaced with slotProps */}
             {!collapsed && (
               <ListItemText
                 primary={item.label}
-                primaryTypographyProps={{
-                  fontSize: sidebarStyles.listItemText.fontSize,
-                  color: item.dangerous
-                    ? sidebarStyles.listItemTextDangerous.color
-                    : "inherit",
+                slotProps={{
+                  primary: {
+                    fontSize: sidebarStyles.listItemText.fontSize,
+                    color: item.dangerous
+                      ? sidebarStyles.listItemTextDangerous.color
+                      : "inherit",
+                  },
                 }}
               />
             )}
@@ -160,7 +165,6 @@ export default function Sidebar({
     });
   };
 
-  // Sidebar body content
   const SidebarContent = (
     <Box
       sx={{
@@ -169,7 +173,6 @@ export default function Sidebar({
       }}
       role="presentation"
     >
-      {/* Sticky brand row - only on non-small screens */}
       {!isSmall && (
         <Box
           sx={{
@@ -198,9 +201,7 @@ export default function Sidebar({
         </Box>
       )}
 
-      {/* Scrollable area */}
       <Box sx={sidebarStyles.scrollableArea}>
-        {/* Navigation list */}
         <List
           sx={sidebarStyles.list}
           component="nav"
@@ -209,11 +210,9 @@ export default function Sidebar({
           {renderMenuItems()}
         </List>
 
-        {/* spacer bottom so content doesn't butt up to profile */}
         <Box sx={sidebarStyles.spacer} />
       </Box>
 
-      {/* Divider and sticky bottom profile */}
       <Divider sx={sidebarStyles.divider} />
 
       <Box sx={sidebarStyles.profileSection}>
@@ -225,13 +224,13 @@ export default function Sidebar({
               onClick={() => handleNavigation("/profile")}
             >
               {!collapsed ? (
+                // FIX 4: primaryTypographyProps + secondaryTypographyProps replaced with slotProps
                 <ListItemText
                   primary="Super Admin"
                   secondary="admin@digital.com"
-                  primaryTypographyProps={{ fontSize: "0.85rem" }}
-                  secondaryTypographyProps={{
-                    fontSize: "0.72rem",
-                    color: "#9fbbe6",
+                  slotProps={{
+                    primary: { fontSize: "0.85rem" },
+                    secondary: { fontSize: "0.72rem", color: "#9fbbe6" },
                   }}
                 />
               ) : (
@@ -244,7 +243,6 @@ export default function Sidebar({
     </Box>
   );
 
-  // Render drawers: temporary for mobile, permanent for desktop
   return (
     <>
       <Box
@@ -263,7 +261,6 @@ export default function Sidebar({
           ModalProps={{ keepMounted: true }}
           sx={sidebarStyles.drawerTemporary}
         >
-          {/* Drawer header with Close icon */}
           <Box sx={sidebarStyles.mobileHeader}>
             <Typography sx={sidebarStyles.mobileHeaderText}>Digital</Typography>
             <IconButton
@@ -279,7 +276,6 @@ export default function Sidebar({
           {SidebarContent}
         </Drawer>
 
-        {/* Permanent sidebar for sm+ */}
         <Drawer
           variant="permanent"
           open
