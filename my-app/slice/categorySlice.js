@@ -1,145 +1,151 @@
-import { createSlice, createAsyncThunk, isRejectedWithValue } from "@reduxjs/toolkit";
-import { createWorkStore } from "next/dist/server/async-storage/work-store";
+
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 
 
-
-
 export const fetchCategoryById = createAsyncThunk(
-    "categories/fetchCategoryById",
-    async (id) => {
-        try {
-            const response = await fetch(`${process.env.Api}/admin/categories/${id}`);
-            if (!response.ok) {
-                throw new Error(`Failed to fetch category: `);
-            }
+  'categories/fetchCategoryById',
+  async (id) => {
+    try {
+      const response = await fetch(`${process.env.API}/admin/categories/${id}`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch category:`);
+      }
 
 
-            return await response.json();
-        } catch (error) {
-            toast.error(`Error loading category: ${error.message}`);
-            throw error;
-        }
+
+      return await response.json();
+    } catch (error) {
+      toast.error(`Error loading category: ${error.message}`);
+      throw error;
     }
+  }
 );
 
 
 export const fetchCategories = createAsyncThunk(
-    "categories/fetchCategories",
-    async () => {
-        try {
-            const response = await fetch(`${process.env.Api}/admin/categories`);
-            if (!response.ok) {
-                throw new Error(`Failed to fetch categories`);
-            }
-            return await response.json();
-        } catch (error) {
-            toast.error(`Error loading categories: ${error.message}`);
-        }
+  "categories/fetchCategories",
+  async () => {
+    try {
+      const response = await fetch(`${process.env.API}/admin/categories`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch categories`);
+      }
+      return await response.json();
+    } catch (error) {
+      toast.error(`Error loading categories: ${error.message}`);
+      throw error;
     }
+  }
 );
+
 
 export const fetchHomeCategories = createAsyncThunk(
-    "categories/fetchHomeCategories",
-    async () => {
-        try {
-            const response = await fetch(`${process.env.Api}/categories`);
-            if (!response.ok) {
-                throw new Error(`Failed to fetch categories`);
-            }
-            return await response.json();
-        } catch (error) {
-            toast.error(`Error loading categories: ${error.message}`);
-            throw error;
-        }
+  "categories/fetchHomeCategories",
+  async () => {
+    try {
+      const response = await fetch(`${process.env.API}/categories`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch categories`);
+      }
+      return await response.json();
+    } catch (error) {
+      toast.error(`Error loading categories: ${error.message}`);
+      throw error;
     }
+  }
 );
 
+
 export const createCategory = createAsyncThunk(
-    "categories/createCategory",
-    async (categoryData, { rejectWithValue }) => {
-        try {
-            const res = await fetch(`${process.env.Api}/admin/categories`, {
-                mehtod: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(categoryData),
-            });
+  "categories/createCategory",
+  async (categoryData, { rejectWithValue }) => {
+    try {
+      const res = await fetch(`${process.env.API}/admin/categories`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(categoryData),
+      });
 
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.message);
+      const data = await res.json();
 
-            toast.success("Category created successfully");
-            return data;
-        } catch (error) {
-            toast.error(error.message);
-            return rejectWithValue(error.message);
-        }
+      if (!res.ok) throw new Error(data.message);
+
+      toast.success("Category created successfully");
+      return data;
+
+
+    } catch (error) {
+      toast.error(error.message);
+      return rejectWithValue(error.message);
     }
+  }
 );
 
 
 export const updateCategory = createAsyncThunk(
-    "categories/updateCategory",
-    async ({ id, categoryData }) => {
+  "categories/updateCategory",
+  async ({ id, categoryData }) => {
 
 
 
 
-        try {
-            const response = await fetch(`${process.env.API}/admin/categories/${id}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(categoryData),
-            });
-            if (!response.ok) {
-                throw new Error(`Failed to update category: ${response.status}`);
-            }
-            const data = await response.json();
-            toast.success("Category updated successfully!");
-            return data;
-        } catch (error) {
-            toast.error(`Error updating category: ${error.message}`);
-            throw error;
-        }
+    try {
+      const response = await fetch(`${process.env.API}/admin/categories/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(categoryData),
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to update category: ${response.status}`);
+      }
+      const data = await response.json();
+      toast.success("Category updated successfully!");
+      return data;
+    } catch (error) {
+      toast.error(`Error updating category: ${error.message}`);
+      throw error;
     }
+  }
 );
 
+
 export const deleteCategory = createAsyncThunk(
-    "categories/deleteCategory",
-    async (id) => {
-        console.log("delete di ", id)
+  "categories/deleteCategory",
+  async (id) => {
+    console.log("delete di ", id)
 
 
-        try {
-            const response = await fetch(`${process.env.API}/admin/categories/${id}`, {
-                method: "DELETE",
-            });
-            if (!response.ok) {
-                throw new Error(`Failed to delete category: ${response.status}`);
-            }
-            toast.success("Category deleted successfully!");
-            return id;
-        } catch (error) {
-            toast.error(`Error deleting category: ${error.message}`);
-            throw error;
-        }
+    try {
+      const response = await fetch(`${process.env.API}/admin/categories/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to delete category: ${response.status}`);
+      }
+      toast.success("Category deleted successfully!");
+      return id;
+    } catch (error) {
+      toast.error(`Error deleting category: ${error.message}`);
+      throw error;
     }
+  }
 );
 
 const categorySlice = createSlice({
   name: "categories",
   initialState: {
     list: [],
-       current: null,  
+    current: null,
     loading: false,
     error: null,
-    homeCategories: [], 
+    homeCategories: [],
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-     
+
       .addCase(createCategory.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -220,7 +226,7 @@ const categorySlice = createSlice({
 
       .addCase(fetchCategoryById.fulfilled, (state, action) => {
         state.loading = false;
-        state.current = action.payload; //  FIX
+        state.current = action.payload; // ✅ FIX
 
         const index = state.list.findIndex(
           (c) => c._id === action.payload._id
