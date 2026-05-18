@@ -45,7 +45,7 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    alert(JSON.stringify({formData}, null, 4))
+    //alert(JSON.stringify({formData}, null, 4))
 
     if (!formData.email || !formData.password) {
       toast.error("email and password are required");
