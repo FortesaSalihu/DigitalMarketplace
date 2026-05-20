@@ -18,13 +18,21 @@ import styles from "./createCategoryStyles";
 /* ===============================
    Options
 ================================ */
+const video = ["mp4", "mov", "avi", "webm"];
+const audio = ["mp3", "wav", "ogg", "m4a"];
+
 const FILE_TYPE_OPTIONS = [
+  // 🖼️ Images
   { label: "JPG", value: "jpg" },
   { label: "JPEG", value: "jpeg" },
   { label: "PNG", value: "png" },
   { label: "BMP", value: "bmp" },
+
+  // 📦 Archives
   { label: "ZIP", value: "zip" },
   { label: "RAR", value: "rar" },
+
+  // 📄 Documents
   { label: "PDF", value: "pdf" },
   { label: "DOC", value: "doc" },
   { label: "DOCX", value: "docx" },
@@ -33,6 +41,18 @@ const FILE_TYPE_OPTIONS = [
   { label: "PPT", value: "ppt" },
   { label: "PPTX", value: "pptx" },
   { label: "TXT", value: "txt" },
+
+  // 🎥 Video
+  { label: "MP4", value: "mp4" },
+  { label: "MOV", value: "mov" },
+  { label: "AVI", value: "avi" },
+  { label: "WEBM", value: "webm" },
+
+  // 🎵 Audio
+  { label: "MP3", value: "mp3" },
+  { label: "WAV", value: "wav" },
+  { label: "OGG", value: "ogg" },
+  { label: "M4A", value: "m4a" },
 ];
 
 const BOOLEAN_OPTIONS = [
@@ -41,6 +61,62 @@ const BOOLEAN_OPTIONS = [
 ];
 
 const EditCategoryForm = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [formData, setFormData] = useState({
+    category_name: "",
+    file_types: [],
+    show_at_featured: false,
+    show_at_nav: false,
+  });
+
+  const dispatch = useDispatch();
+
+  const categoryId = searchParams.get("id");
+
+  const { current, loading } = useSelector((state) => state.categories);
+
+  useEffect(() => {
+    if (categoryId) {
+      dispatch(fetchCategoryById(categoryId));
+    }
+  }, [categoryId, dispatch]);
+
+  useEffect(() => {
+    if (current) {
+      setFormData({
+        category_name: current.name || "",
+        file_types: current.fileTypes || [],
+        show_at_featured: current.show_at_featured ?? false,
+
+        show_at_nav: current.show_at_nav ?? false,
+      });
+    }
+  }, [current]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const result = await dispatch(
+      updateCategory({
+        id: categoryId,
+        categoryData: formData,
+      })
+    );
+
+    if (updateCategory.fulfilled.match(result)) {
+      router.push("/dashboard/admin/categories/list");
+    }
+  };
+
   return (
     <Box sx={styles.page}>
       {/* Header */}

@@ -37,9 +37,9 @@ const SelectInput = ({
   };
 
   return (
-    <FormControl 
-      fullWidth={fullWidth} 
-      size={size} 
+    <FormControl
+      fullWidth={fullWidth}
+      size={size}
       error={error}
       disabled={disabled}
       sx={getStyles()}

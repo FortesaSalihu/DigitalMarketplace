@@ -1,19 +1,14 @@
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
-
-
 export const fetchCategoryById = createAsyncThunk(
-  'categories/fetchCategoryById',
+  "categories/fetchCategoryById",
   async (id) => {
     try {
       const response = await fetch(`${process.env.API}/admin/categories/${id}`);
       if (!response.ok) {
         throw new Error(`Failed to fetch category:`);
       }
-
-
 
       return await response.json();
     } catch (error) {
@@ -22,7 +17,6 @@ export const fetchCategoryById = createAsyncThunk(
     }
   }
 );
-
 
 export const fetchCategories = createAsyncThunk(
   "categories/fetchCategories",
@@ -40,7 +34,6 @@ export const fetchCategories = createAsyncThunk(
   }
 );
 
-
 export const fetchHomeCategories = createAsyncThunk(
   "categories/fetchHomeCategories",
   async () => {
@@ -56,7 +49,6 @@ export const fetchHomeCategories = createAsyncThunk(
     }
   }
 );
-
 
 export const createCategory = createAsyncThunk(
   "categories/createCategory",
@@ -74,8 +66,6 @@ export const createCategory = createAsyncThunk(
 
       toast.success("Category created successfully");
       return data;
-
-
     } catch (error) {
       toast.error(error.message);
       return rejectWithValue(error.message);
@@ -83,20 +73,18 @@ export const createCategory = createAsyncThunk(
   }
 );
 
-
 export const updateCategory = createAsyncThunk(
   "categories/updateCategory",
   async ({ id, categoryData }) => {
-
-
-
-
     try {
-      const response = await fetch(`${process.env.API}/admin/categories/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(categoryData),
-      });
+      const response = await fetch(
+        `${process.env.API}/admin/categories/${id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(categoryData),
+        }
+      );
       if (!response.ok) {
         throw new Error(`Failed to update category: ${response.status}`);
       }
@@ -110,17 +98,18 @@ export const updateCategory = createAsyncThunk(
   }
 );
 
-
 export const deleteCategory = createAsyncThunk(
   "categories/deleteCategory",
   async (id) => {
-    console.log("delete di ", id)
-
+    console.log("delete di ", id);
 
     try {
-      const response = await fetch(`${process.env.API}/admin/categories/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `${process.env.API}/admin/categories/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (!response.ok) {
         throw new Error(`Failed to delete category: ${response.status}`);
       }
@@ -228,9 +217,7 @@ const categorySlice = createSlice({
         state.loading = false;
         state.current = action.payload; // ✅ FIX
 
-        const index = state.list.findIndex(
-          (c) => c._id === action.payload._id
-        );
+        const index = state.list.findIndex((c) => c._id === action.payload._id);
 
         if (index !== -1) {
           state.list[index] = action.payload;
