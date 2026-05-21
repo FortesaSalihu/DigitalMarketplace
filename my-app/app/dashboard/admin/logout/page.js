@@ -1,13 +1,13 @@
 "use client";
 
-import CategoryCreateForm from "@/components/dashboard/admin/Categories/Create/CategoryCreateForm";
+import LogOut from "@/components/dashboard/user/LogOut/LogOut";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import { CssBaseline } from "@mui/material";
 import Sidebar from "@/components/dashboard/admin/Sidebar";
 import Topbar from "@/components/dashboard/admin/Topbar";
 
-export default function Page() {
+export default function KycUpdatePage() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -30,8 +30,7 @@ export default function Page() {
           }}
         >
           <Topbar onMenuClick={() => setMobileOpen(true)} />
-
-          <CategoryCreateForm/>
+          <LogOut />
         </Box>
       </Box>
     </>
