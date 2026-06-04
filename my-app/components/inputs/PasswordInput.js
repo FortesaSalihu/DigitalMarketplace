@@ -2,9 +2,7 @@
 
 import React, { useState } from "react";
 import { TextField, InputAdornment, IconButton } from "@mui/material";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import inputStyles from "./inputStyles";
 
 const PasswordInput = ({
@@ -24,9 +22,7 @@ const PasswordInput = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClickShowPassword = () => {
-    setShowPassword((show) => !show);
-  };
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const getStyles = () => {
     let styles = { ...inputStyles.container, ...inputStyles.passwordInput };

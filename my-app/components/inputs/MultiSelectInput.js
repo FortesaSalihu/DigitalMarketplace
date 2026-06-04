@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import {
   FormControl,
   InputLabel,
@@ -9,8 +9,8 @@ import {
   Chip,
   Box,
   FormHelperText,
-} from '@mui/material';
-import inputStyles from './inputStyles';
+} from "@mui/material";
+import inputStyles from "./inputStyles";
 
 const MultiSelectInput = ({
   label,
@@ -21,27 +21,27 @@ const MultiSelectInput = ({
   required = false,
   disabled = false,
   error = false,
-  helperText = '',
-  size = 'medium',
+  helperText = "",
+  size = "medium",
   fullWidth = true,
   sx = {},
   ...props
 }) => {
   const getStyles = () => {
     let styles = { ...inputStyles.container, ...inputStyles.multiSelect };
-    
+
     if (error) styles = { ...styles, ...inputStyles.error };
     if (disabled) styles = { ...styles, ...inputStyles.disabled };
-    if (size === 'small') styles = { ...styles, ...inputStyles.small };
-    if (size === 'large') styles = { ...styles, ...inputStyles.large };
-    
+    if (size === "small") styles = { ...styles, ...inputStyles.small };
+    if (size === "large") styles = { ...styles, ...inputStyles.large };
+
     return { ...styles, ...sx };
   };
 
   return (
-    <FormControl 
-      fullWidth={fullWidth} 
-      size={size} 
+    <FormControl
+      fullWidth={fullWidth}
+      size={size}
       error={error}
       disabled={disabled}
       sx={getStyles()}
@@ -56,13 +56,13 @@ const MultiSelectInput = ({
         onChange={onChange}
         required={required}
         renderValue={(selected) => (
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
             {selected.map((selectedValue) => {
-              const option = options.find(opt => opt.value === selectedValue);
+              const option = options.find((opt) => opt.value === selectedValue);
               return (
-                <Chip 
-                  key={selectedValue} 
-                  label={option?.label || selectedValue} 
+                <Chip
+                  key={selectedValue}
+                  label={option?.label || selectedValue}
                   size="small"
                 />
               );

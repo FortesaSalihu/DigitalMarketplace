@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import {
   FormControlLabel,
   Switch,
@@ -8,42 +8,42 @@ import {
   FormHelperText,
   Typography,
   Box,
-} from '@mui/material';
-import inputStyles from './inputStyles';
+} from "@mui/material";
+import inputStyles from "./inputStyles";
 
 const SwitchInput = ({
   label,
   name,
   checked = false,
   onChange,
-  size = 'medium',
-  color = 'primary',
+  size = "medium",
+  color = "primary",
   disabled = false,
   required = false,
-  helperText = '',
-  labelPlacement = 'end',
+  helperText = "",
+  labelPlacement = "end",
   sx = {},
   ...props
 }) => {
   const getSwitchStyles = () => {
     let styles = { ...inputStyles.switch };
-    
+
     // Size styles
-    if (size === 'small') {
+    if (size === "small") {
       styles = { ...styles, ...inputStyles.switchSmall };
-    } else if (size === 'large') {
+    } else if (size === "large") {
       styles = { ...styles, ...inputStyles.switchLarge };
     }
-    
+
     // Color styles
-    if (color === 'success') {
+    if (color === "success") {
       styles = { ...styles, ...inputStyles.switchSuccess };
-    } else if (color === 'error') {
+    } else if (color === "error") {
       styles = { ...styles, ...inputStyles.switchError };
-    } else if (color === 'warning') {
+    } else if (color === "warning") {
       styles = { ...styles, ...inputStyles.switchWarning };
     }
-    
+
     return styles;
   };
 
@@ -70,34 +70,34 @@ const SwitchInput = ({
               disabled={disabled}
               required={required}
               sx={getSwitchStyles()}
-              color={color === 'primary' ? 'primary' : undefined}
+              color={color === "primary" ? "primary" : undefined}
               {...props}
             />
           }
           label={
-            <Typography 
-              variant={size === 'small' ? 'body2' : 'body1'}
-              color={disabled ? 'text.disabled' : 'text.primary'}
+            <Typography
+              variant={size === "small" ? "body2" : "body1"}
+              color={disabled ? "text.disabled" : "text.primary"}
             >
               {label}
-              {required && ' *'}
+              {required && " *"}
             </Typography>
           }
           labelPlacement={labelPlacement}
-          sx={{ 
+          sx={{
             marginLeft: 0,
             marginRight: 0,
-            '& .MuiFormControlLabel-label': {
+            "& .MuiFormControlLabel-label": {
               ml: 1,
-            }
+            },
           }}
         />
       </FormGroup>
       {helperText && (
-        <FormHelperText 
-          sx={{ 
+        <FormHelperText
+          sx={{
             ml: 0,
-            color: disabled ? 'text.disabled' : 'text.secondary'
+            color: disabled ? "text.disabled" : "text.secondary",
           }}
         >
           {helperText}

@@ -16,20 +16,20 @@ const inputStyles = {
     cursor: "pointer",
     transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
     position: "relative",
-      overflow: "hidden",
-    marginBottom:"30px",
-    
+    overflow: "hidden",
+    marginBottom: "30px",
+
     "&:hover": {
       borderColor: "#890eeeff",
       backgroundColor: "rgba(137, 14, 238, 0.02)",
       transform: "translateY(-2px)",
       boxShadow: "0 10px 40px rgba(137, 14, 238, 0.1)",
     },
-    
+
     "&:active": {
       transform: "translateY(0)",
     },
-    
+
     "&.dragOver": {
       borderColor: "primary.main",
       backgroundColor: "rgba(137, 14, 238, 0.05)",
@@ -56,17 +56,18 @@ const inputStyles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    
+
     "&::before": {
       content: '""',
       position: "absolute",
       width: "100%",
       height: "100%",
       borderRadius: "50%",
-      background: "linear-gradient(135deg, rgba(137, 14, 238, 0.1) 0%, rgba(186, 104, 200, 0.1) 100%)",
+      background:
+        "linear-gradient(135deg, rgba(137, 14, 238, 0.1) 0%, rgba(186, 104, 200, 0.1) 100%)",
       zIndex: 0,
     },
-    
+
     "&::after": {
       content: '""',
       position: "absolute",
@@ -100,17 +101,17 @@ const inputStyles = {
     position: "relative",
     overflow: "hidden",
     transition: "all 0.3s ease",
-    
+
     "&:hover": {
       background: "linear-gradient(45deg, #7A0AD7 0%, #890eeeff 100%)",
       boxShadow: "0 10px 30px rgba(137, 14, 238, 0.5)",
       transform: "translateY(-2px)",
     },
-    
+
     "&:active": {
       transform: "translateY(0)",
     },
-    
+
     "&::after": {
       content: '""',
       position: "absolute",
@@ -121,7 +122,7 @@ const inputStyles = {
       background: "linear-gradient(90deg, transparent, #890eeeff, transparent)",
       transition: "left 0.5s ease",
     },
-    
+
     "&:hover::after": {
       left: "100%",
     },
@@ -147,7 +148,7 @@ const inputStyles = {
     backgroundColor: "white",
     marginBottom: "12px",
     transition: "all 0.3s ease",
-    
+
     "&:hover": {
       borderColor: "primary.light",
       backgroundColor: "rgba(137, 14, 238, 0.02)",
@@ -174,7 +175,7 @@ const inputStyles = {
     borderRadius: "4px",
     backgroundColor: "grey.200",
     overflow: "hidden",
-    
+
     "& .MuiLinearProgress-bar": {
       borderRadius: "4px",
       background: "linear-gradient(90deg, #890EEE 0%, #890eeeff 100%)",
@@ -197,7 +198,7 @@ const inputStyles = {
     backgroundColor: "rgba(239, 68, 68, 0.1)",
     color: "error.main",
     transition: "all 0.2s ease",
-    
+
     "&:hover": {
       backgroundColor: "rgba(239, 68, 68, 0.2)",
       transform: "scale(1.1)",
@@ -228,7 +229,7 @@ const inputStyles = {
     marginTop: "12px",
     paddingLeft: "16px",
     fontSize: "0.9rem !important",
-    
+
     "&.error": {
       color: "error.main",
     },

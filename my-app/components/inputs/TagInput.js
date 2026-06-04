@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { Box, TextField, Chip } from '@mui/material';
-import inputStyles from './inputStyles';
+import React, { useEffect, useState } from "react";
+import { Box, TextField, Chip } from "@mui/material";
+import inputStyles from "./inputStyles";
 
 /* ===============================
    ClientOnly (same file)
@@ -22,19 +22,19 @@ function ClientOnly({ children }) {
    TagInput Component
 ================================ */
 const TagInput = ({
-  label = 'Tags',
+  label = "Tags",
   value = [],
   onChange,
-  placeholder = 'Type and press Enter',
+  placeholder = "Type and press Enter",
   disabled = false,
   error = false,
-  size = 'medium',
+  size = "medium",
   sx = {},
 }) => {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && inputValue.trim()) {
+    if (e.key === "Enter" && inputValue.trim()) {
       e.preventDefault();
 
       const newTag = inputValue.trim();
@@ -43,7 +43,7 @@ const TagInput = ({
         onChange([...value, newTag]);
       }
 
-      setInputValue('');
+      setInputValue("");
     }
   };
 
@@ -55,15 +55,15 @@ const TagInput = ({
     let styles = {
       ...inputStyles.container,
       ...inputStyles.textInput,
-      border: '1px solid #890eeeff',
+      border: "1px solid #890eeeff",
       borderRadius: 1,
-      padding: '8px',
+      padding: "8px",
     };
 
     if (error) styles = { ...styles, ...inputStyles.error };
     if (disabled) styles = { ...styles, ...inputStyles.disabled };
-    if (size === 'small') styles = { ...styles, ...inputStyles.small };
-    if (size === 'large') styles = { ...styles, ...inputStyles.large };
+    if (size === "small") styles = { ...styles, ...inputStyles.small };
+    if (size === "large") styles = { ...styles, ...inputStyles.large };
 
     return { ...styles, ...sx };
   };
@@ -81,26 +81,26 @@ const TagInput = ({
           variant="outlined"
           fullWidth
           sx={{
-            '& .MuiOutlinedInput-root': {
-              '& fieldset': {
-                borderColor: '#890eeeff',
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "#890eeeff",
               },
-              '&:hover fieldset': {
-                borderColor: '#890eeeff',
+              "&:hover fieldset": {
+                borderColor: "#890eeeff",
               },
-              '&.Mui-focused fieldset': {
-                borderColor: '#890eeeff',
+              "&.Mui-focused fieldset": {
+                borderColor: "#890eeeff",
                 borderWidth: 2,
               },
             },
-            '& .MuiInputLabel-root.Mui-focused': {
-              color: '#890eeeff',
+            "& .MuiInputLabel-root.Mui-focused": {
+              color: "#890eeeff",
             },
           }}
         />
 
         {/* Selected tags */}
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 1 }}>
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mt: 1 }}>
           {value.map((tag) => (
             <Chip
               key={tag}
@@ -108,12 +108,12 @@ const TagInput = ({
               size="small"
               onDelete={() => handleDelete(tag)}
               sx={{
-                backgroundColor: '#890eeeff',
-                color: '#ffffff',
-                '& .MuiChip-deleteIcon': {
-                  color: '#ffffff',
+                backgroundColor: "#890eeeff",
+                color: "#ffffff",
+                "& .MuiChip-deleteIcon": {
+                  color: "#ffffff",
                   opacity: 0.8,
-                  '&:hover': {
+                  "&:hover": {
                     opacity: 1,
                   },
                 },

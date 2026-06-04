@@ -54,7 +54,7 @@ export default function DashboardPage() {
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid xs={12} sm={6} md={4}>
           <Card>
             <CardContent sx={dashboardStyles.cardContent}>
               <Box sx={dashboardStyles.cardIconWrapBlue}>

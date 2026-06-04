@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
+
 import User from "./User";
+
 import Category from "./Category";
+
 import SubCategory from "./SubCategory";
 
 const ItemSchema = new mongoose.Schema(

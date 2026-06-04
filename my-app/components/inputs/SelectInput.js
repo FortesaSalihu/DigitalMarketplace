@@ -1,14 +1,14 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import {
   FormControl,
   InputLabel,
   Select,
   MenuItem,
   FormHelperText,
-} from '@mui/material';
-import inputStyles from './inputStyles';
+} from "@mui/material";
+import inputStyles from "./inputStyles";
 
 const SelectInput = ({
   label,
@@ -19,20 +19,20 @@ const SelectInput = ({
   required = false,
   disabled = false,
   error = false,
-  helperText = '',
-  size = 'medium',
+  helperText = "",
+  size = "medium",
   fullWidth = true,
   sx = {},
   ...props
 }) => {
   const getStyles = () => {
     let styles = { ...inputStyles.container, ...inputStyles.selectInput };
-    
+
     if (error) styles = { ...styles, ...inputStyles.error };
     if (disabled) styles = { ...styles, ...inputStyles.disabled };
-    if (size === 'small') styles = { ...styles, ...inputStyles.small };
-    if (size === 'large') styles = { ...styles, ...inputStyles.large };
-    
+    if (size === "small") styles = { ...styles, ...inputStyles.small };
+    if (size === "large") styles = { ...styles, ...inputStyles.large };
+
     return { ...styles, ...sx };
   };
 
