@@ -26,7 +26,7 @@ export default function MyItemsMobileCards({
   return (
     <Grid container spacing={responsive.cardSpacing}>
       {items.map((row) => (
-        <Grid item xs={12} key={row.id}>
+        <Grid size={12} key={row.id}>
           <Card sx={responsive.card}>
             <CardContent sx={responsive.cardContent}>
               {/* 🔝 Top Section */}
@@ -66,8 +66,10 @@ export default function MyItemsMobileCards({
               <Stack
                 direction={responsive.stackDirection}
                 spacing={responsive.stackSpacing}
-                alignItems={responsive.stackAlign}
-                justifyContent="space-between"
+                sx={{
+                  alignItems: responsive.stackAlign,
+                  justifyContent: "space-between",
+                }}
               >
                 {/* 💰 Price & Status */}
                 <Box sx={responsive.metadataBox}>
