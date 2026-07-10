@@ -1,8 +1,0 @@
-{
-  "dev": "next dev --webpack",
-  "dependencies": {
-    "@reduxjs/toolkit": "^2.11.2",
-    "react-redux": "^9.2.0",
-    "slugify": "^1.6.9"
-  }
-}
