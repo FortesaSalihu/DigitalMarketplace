@@ -6,7 +6,7 @@ A modern full-stack Digital Marketplace built with **Next.js 16**, **React**, **
 
 # Project Overview
 
-The Digital Marketplace is a web application developed using the latest Next.js App Router architecture.
+The Digital Marketplace is a full-stack web application developed using the **Next.js App Router** architecture. The application follows a modular structure that separates presentation, business logic, authentication, and data access into different layers, making the project easier to maintain, extend, and test.
 
 The system provides:
 
@@ -20,7 +20,99 @@ The system provides:
 - Responsive UI
 - MongoDB Database Integration
 
-The project follows modern full-stack development practices and separates frontend, backend APIs, authentication, and database logic.
+---
+
+# System Architecture
+
+The project follows a layered architecture.
+
+```
+                    +-----------------------+
+                    |      Client Browser   |
+                    +-----------+-----------+
+                                |
+                                v
+                    +-----------------------+
+                    |     Next.js App       |
+                    |     App Router        |
+                    +-----------+-----------+
+                                |
+          +---------------------+---------------------+
+          |                                           |
+          v                                           v
++-----------------------+                 +-----------------------+
+|    React Components   |                 |     API Routes        |
+|   Material UI Pages   |                 |  Server Actions       |
++-----------+-----------+                 +-----------+-----------+
+            |                                         |
+            +-------------------+---------------------+
+                                |
+                                v
+                    +-----------------------+
+                    |    Business Logic     |
+                    +-----------+-----------+
+                                |
+              +-----------------+-----------------+
+              |                                   |
+              v                                   v
+      +-------------------+             +-------------------+
+      |     MongoDB       |             |    Cloudinary     |
+      |   Mongoose ODM    |             |  Image Storage    |
+      +-------------------+             +-------------------+
+```
+
+---
+
+# Architecture Layers
+
+## Presentation Layer
+
+Responsible for the user interface.
+
+- React Components
+- Material UI
+- Responsive Layout
+- Client-side Rendering
+
+---
+
+## Application Layer
+
+Contains the application logic.
+
+- Next.js App Router
+- API Routes
+- Server Actions
+- Form Validation
+
+---
+
+## Authentication Layer
+
+Handles user authentication and authorization.
+
+- NextAuth
+- Session Management
+- Role-Based Access Control
+- Protected Routes
+
+---
+
+## Data Layer
+
+Responsible for storing application data.
+
+- MongoDB
+- Mongoose Models
+- Database CRUD Operations
+
+---
+
+## External Services
+
+Third-party services integrated into the project.
+
+- Cloudinary (Image Uploads)
 
 ---
 
@@ -42,23 +134,23 @@ The project follows modern full-stack development practices and separates fronte
 
 - Create Account
 - Login Securely
-- View Dashboard
-- Edit Profile
-- Change Password
 - Browse Products
 - View Product Details
+- Edit Profile
+- Change Password
+- User Dashboard
 
 ---
 
 ## Admin Features
 
-The administrator has full control over the platform.
+The administrator has complete control over the marketplace.
 
 ### Dashboard
 
-- Admin Dashboard
+- Dashboard Overview
 - Navigation Sidebar
-- Statistics Overview
+- Platform Statistics
 
 ### Category Management
 
@@ -79,34 +171,27 @@ The administrator has full control over the platform.
 - Create Products
 - Edit Products
 - Delete Products
-- Upload Product Images
+- Upload Images
 - Product Status Management
 
 ---
 
-## Image Upload
+# Database Design
 
-Images are uploaded using **Cloudinary**.
+The application uses MongoDB with Mongoose ODM.
 
-Features:
-
-- Secure Upload
-- Cloud Storage
-- Fast Delivery
-- Optimized Images
-
----
-
-## Database
-
-MongoDB stores all application data.
-
-Collections include:
+Main collections:
 
 - Users
 - Categories
 - Subcategories
 - Products
+
+Relationships:
+
+- One Category → Many Subcategories
+- One Subcategory → Many Products
+- One User → Authentication Information
 
 ---
 
@@ -116,15 +201,15 @@ Collections include:
 |------------|---------|
 | Next.js 16 | Full Stack Framework |
 | React 19 | Frontend |
-| MongoDB | Database |
+| MongoDB | NoSQL Database |
 | Mongoose | MongoDB ODM |
 | NextAuth | Authentication |
 | Material UI | UI Components |
-| Redux Toolkit | State Management |
-| React Redux | Global State |
+| Redux Toolkit | Global State Management |
+| React Redux | State Management |
 | Cloudinary | Image Storage |
 | Axios | HTTP Requests |
-| bcrypt | Password Encryption |
+| bcrypt | Password Hashing |
 | Slugify | SEO Friendly URLs |
 | React Toastify | Notifications |
 
@@ -140,25 +225,43 @@ my-app
 │   │   ├── admin
 │   │   ├── author
 │   │   └── user
-│   │
+│   ├── api
 │   ├── login
 │   ├── register
-│   └── api
+│   └── page.js
+│
+├── actions
 │
 ├── components
 │
 ├── context
 │
-├── models
-│
-├── actions
-│
 ├── libs
+│
+├── models
 │
 ├── public
 │
-└── styles
+├── styles
+│
+└── middleware.js
 ```
+
+---
+
+# Folder Responsibilities
+
+| Folder | Responsibility |
+|---------|----------------|
+| app | Application pages, layouts, API routes, dashboards |
+| components | Reusable React components |
+| actions | Server-side business logic |
+| models | Mongoose database schemas |
+| libs | Database connection and helper utilities |
+| context | React Context Providers |
+| public | Static assets |
+| styles | Global styling |
+| middleware.js | Route protection and middleware |
 
 ---
 
@@ -167,10 +270,10 @@ my-app
 Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/DigitalMarketplace.git
+git clone https://github.com/FortesaSalihu/DigitalMarketplace.git
 ```
 
-Go into the project folder
+Go to the project
 
 ```bash
 cd DigitalMarketplace/my-app
@@ -182,7 +285,7 @@ Install dependencies
 npm install
 ```
 
-Create a `.env.local` file and configure the following environment variables:
+Create a `.env.local` file
 
 ```env
 MONGODB_URI=
@@ -198,7 +301,7 @@ CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
 ```
 
-Run the application
+Run the development server
 
 ```bash
 npm run dev
@@ -214,40 +317,72 @@ http://localhost:3000
 
 # Application Workflow
 
-1. User registers.
-2. Password is encrypted.
-3. User logs in through NextAuth.
-4. Session is created.
-5. User accesses protected pages.
-6. Administrator manages marketplace data.
-7. Product images are uploaded to Cloudinary.
-8. MongoDB stores all application data.
+```
+User
+ │
+ ▼
+Register / Login
+ │
+ ▼
+NextAuth Authentication
+ │
+ ▼
+Session Created
+ │
+ ▼
+Protected Dashboard
+ │
+ ▼
+API Routes
+ │
+ ▼
+MongoDB Database
+ │
+ ▼
+Cloudinary (Image Uploads)
+```
 
 ---
 
 # Security
 
-The project includes several security features:
+The application includes several security mechanisms.
 
-- Password Hashing
+- Password Hashing using bcrypt
 - Protected Routes
 - Role-Based Authorization
 - Environment Variables
-- Secure Authentication
 - Session Management
+- Secure Authentication with NextAuth
+- Server-side Validation
+
+---
+
+# Design Principles
+
+The project follows modern software engineering practices.
+
+- Component-Based Architecture
+- Separation of Concerns
+- Modular Folder Structure
+- Reusable Components
+- RESTful API Design
+- Layered Architecture
+- Scalable Project Structure
 
 ---
 
 # Future Improvements
 
-Potential future enhancements include:
+Potential enhancements include:
 
 - Shopping Cart
 - Wishlist
 - Stripe Payment Integration
 - Product Reviews
 - Product Ratings
-- Search & Filtering
+- Advanced Search
+- Product Filtering
 - Order History
 - Email Verification
 - Password Recovery
@@ -257,41 +392,28 @@ Potential future enhancements include:
 
 ---
 
-# Screenshots
-
-You can include screenshots here.
-
-Example:
-
-```
-/screenshots/home.png
-/screenshots/dashboard.png
-/screenshots/admin.png
-```
-
----
 
 # Learning Outcomes
 
-This project demonstrates knowledge of:
+This project demonstrates practical knowledge of:
 
 - Full Stack Web Development
 - Next.js App Router
 - MongoDB Database Design
 - REST API Development
 - Authentication & Authorization
+- Cloudinary Integration
 - Responsive UI Design
-- Cloud Image Management
 - State Management
-- Modern JavaScript (ES6+)
-- React Components
 - Secure Web Application Development
+- Software Architecture
+- Modern JavaScript (ES6+)
 
 ---
 
 # Author
 
-Fortesa Salihu
+**Fortesa Salihu**
 
 Computer Science & Engineering
 
